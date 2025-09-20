@@ -1,2 +1,2 @@
-const users = [{username:'testusuariocadastrado', password:'12345', favorecido:true}];
+const users = [{username:'testusuariocadastrado', password:'12345'}];
 module.exports = users;
