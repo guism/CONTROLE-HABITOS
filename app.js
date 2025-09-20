@@ -1,6 +1,6 @@
 import express from 'express';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './swagger.json';
+import swaggerDocument from './swagger.json' assert { type: 'json' };
 import userController from './controllers/userController.js';
 import habitController from './controllers/habitController.js';
 
