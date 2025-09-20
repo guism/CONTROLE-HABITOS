@@ -24,7 +24,11 @@ jobs:
     - name: Subir API
       run: |
         nohup npm start > server.log 2>&1 &
-        sleep 10 # Increase the time
+        sleep 15 # Aumentar o tempo de espera para o servidor iniciar
+
+    - name: Verificar logs do servidor
+      run: |
+        echo "Logs do servidor:" && cat server.log
 
     - name: Wait for API to start
       run: |
