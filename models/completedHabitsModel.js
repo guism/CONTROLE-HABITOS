@@ -1,2 +1,2 @@
 const completedHabits = [];
-module.exports = completedHabits;
+export default completedHabits;
