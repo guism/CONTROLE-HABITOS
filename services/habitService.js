@@ -31,4 +31,4 @@ function getCompletedHabits(username) {
   return completedHabits.filter(h => h.username === username);
 }
 
-module.exports = { addHabit, deleteHabit, completeHabit, getCompletedHabits };
+export { addHabit, deleteHabit, completeHabit, getCompletedHabits };
