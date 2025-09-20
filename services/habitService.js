@@ -1,5 +1,5 @@
-const habits = require('../models/habitModel');
-const completedHabits = require('../models/completedHabitsModel');
+import habits from '../models/habitModel.js';
+import completedHabits from '../models/completedHabitsModel.js';
 
 function addHabit(username, habitName) {
   if (habits.find(h => h.username === username && h.habitName === habitName)) {
@@ -31,4 +31,4 @@ function getCompletedHabits(username) {
   return completedHabits.filter(h => h.username === username);
 }
 
-export { addHabit, deleteHabit, completeHabit, getCompletedHabits };
+export default { addHabit, deleteHabit, completeHabit, getCompletedHabits };
