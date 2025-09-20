@@ -26,5 +26,17 @@ describe('Habit Endpoints', () => {
             expect(res.status).to.equal(201);
             expect(res.body.success).to.equal(true);
         });
+        it('Criar hábito já existente', async () => {
+            await request('http://localhost:3000')
+                .post('/habits')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ habitName: 'Novo Hábito' });
+            const res = await request('http://localhost:3000')
+                .post('/habits')
+                .set('Authorization', `Bearer ${token}`)
+                .send({ habitName: 'Novo Hábito' });
+            expect(res.status).to.equal(409);
+            expect(res.body).to.have.property('error', 'Hábito já cadastrado');
+        });
     });
 });
