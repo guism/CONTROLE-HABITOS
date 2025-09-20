@@ -65,21 +65,31 @@ describe('Habit Endpoints', () => {
     describe('GET /habits/history', () => {
         // Adicione seus testes aqui ou remova este bloco se não for necessário
         it('Obter histórico de hábitos concluídos', async () => {
+            const uniqueHabitName = `Novo Hábito ${Date.now()}`; // Use a unique habit name
+
+            // Create the habit
             await request('http://localhost:3000')
                 .post('/habits')
                 .set('Authorization', `Bearer ${token}`)
                 .send({ habitName: 'Novo Hábito' });
+
+            // Complete the habit
             await request('http://localhost:3000')
-                .post('/habits/Novo Hábito/complete')
+                .post(`/habits/Novo Hábito/complete`)
                 .set('Authorization', `Bearer ${token}`);
+
+            // Fetch the history
             const res = await request('http://localhost:3000')
                 .get('/habits/history')
                 .set('Authorization', `Bearer ${token}`);
+
+            // Validate the response
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('array');
             expect(res.body.length).to.be.greaterThan(0);
             expect(res.body[0]).to.have.property('habitName', 'Novo Hábito');
             expect(res.body[0]).to.have.property('username', 'testusuariocadastrado');
+            expect(res.body[0]).to.have.property('date');
         });
 
         });
