@@ -1,5 +1,6 @@
-import users from '../models/userModel';
+import users from '../models/userModel.js';
 import jwt from 'jsonwebtoken';
+
 const SECRET = 'supersecret';
 
 export function register(username, password) {
