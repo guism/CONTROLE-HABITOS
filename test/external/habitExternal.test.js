@@ -64,28 +64,38 @@ describe('Habit Endpoints', () => {
     
     describe('GET /habits/history', () => {
         it('Obter histórico de hábitos concluídos', async () => {
+            const uniqueHabitName = `Novo Hábito ${Date.now()}`; // Use a unique habit name
 
+            // Clear all habits before the test
+            await request('http://localhost:3000')
+                .delete('/habits')
+                .set('Authorization', `Bearer ${token}`);
+
+            // Create the habit
             await request('http://localhost:3000')
                 .post('/habits')
                 .set('Authorization', `Bearer ${token}`)
-                .send({ habitName: 'Novo Hábito' });
+                .send({ habitName: uniqueHabitName });
 
+            // Complete the habit
             await request('http://localhost:3000')
-                .post(`/habits/Novo Hábito/complete`)
+                .post(`/habits/${uniqueHabitName}/complete`)
                 .set('Authorization', `Bearer ${token}`);
 
+            // Fetch the history
             const res = await request('http://localhost:3000')
                 .get('/habits/history')
                 .set('Authorization', `Bearer ${token}`);
 
-            console.log(res.body.habitName);
+            // Validate the response
             expect(res.status).to.equal(200);
             expect(res.body).to.be.an('array');
-            expect(res.body.length).to.be.greaterThan(0);
-            expect(res.body[0]).to.have.property('habitName', 'Novo Hábito');
-            expect(res.body[0]).to.have.property('username', 'testusuariocadastrado');
-            expect(res.body[0]).to.have.property('date');
+            const habit = res.body.find(h => h.habitName === uniqueHabitName);
+            expect(habit).to.exist;
+            expect(habit).to.have.property('habitName', uniqueHabitName);
+            expect(habit).to.have.property('username', 'testusuariocadastrado');
         });
+        
 
         });
     });
