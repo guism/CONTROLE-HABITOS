@@ -1,7 +1,8 @@
-const express = require('express');
+import express from 'express';
+import userService from '../services/userService.js';
+import habitService from '../services/habitService.js';
+
 const router = express.Router();
-const userService = require('../services/userService');
-const habitService = require('../services/habitService');
 
 function authMiddleware(req, res, next) {
   const token = req.headers['authorization']?.split(' ')[1];
@@ -39,4 +40,4 @@ router.get('/history', authMiddleware, (req, res) => {
   res.json(habits);
 });
 
-module.exports = router;
+export default router;
