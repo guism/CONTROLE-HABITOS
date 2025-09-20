@@ -11,4 +11,4 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/users', userController);
 app.use('/habits', habitController);
 
-module.exports = app;
+export default app;
